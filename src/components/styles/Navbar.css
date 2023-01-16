@@ -1,0 +1,41 @@
+
+.Navbar{
+    background-color: #fff;
+    height: 50px;
+    width: 100%;
+    padding: 5px;
+    overflow: hidden;
+}
+.Navbar ul{
+    
+    list-style-type: none;
+}
+.Navbar li {
+    float: left;
+  }
+  
+.Navbar li a {
+    color: black;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+.Navbar form{
+    padding: 4px 20px;
+}
+.Navbar input{
+    width: 50rem;
+    padding: 10px 20px;
+}
+.options{
+    padding: 0 30px;
+}
+.nav-options{
+    padding: 14px 2px;
+    float: left;
+}
+
+#profilePic{
+    padding: 6.5px 2px;
+}
