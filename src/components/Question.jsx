@@ -1,21 +1,19 @@
 import React from 'react';
 import './styles/Question.css';
 
-function Question(){
+function Question(props){
     return (
         <div className='Question'>
-            <div className='QuestionInfo'>
-                <p>0 votes</p>
-                <p>0 answers</p>
-                <p>31/12/22</p>
+                <div className='QuestionInfo'>
+                    <p>{props.votes} votes</p>
+                    <p>{props.answers} answers</p>
+                    <p>{props.date}</p>
+                </div>
+                <div className='QuestionText'>
+                    <a href={"/"+props.keys}>{props.title}</a>
+                    <p>{props.text}</p>
+                </div>
             </div>
-            <div className='QuestionText'>
-                <a href='/question'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                </a>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                </p>
-            </div>
-        </div>
     )
 }
 
