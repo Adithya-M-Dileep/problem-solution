@@ -14,8 +14,7 @@ function HomePage(){
             var q=[];
             querySnapshot.forEach((doc)=>{
                 const question=doc.data();
-                console.log(doc.id);
-                q.push(<Question keys={doc.id} votes={question.votes} answer={question.answer} date={question.date} title={question.title} text={question.text}/>);
+                q.push(<Question keys={doc.id} votes={question.vote} answer={question.answers} date={question.date} title={question.title} text={question.text}/>);
             });
             
             setQuestions(q);

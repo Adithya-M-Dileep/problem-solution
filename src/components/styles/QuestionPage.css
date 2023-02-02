@@ -28,6 +28,7 @@ hr{
     color: rgb(48, 116, 219);
     border-radius: 2px;
     padding: 7px 12px;
+    margin: 0 10px;
 }
 .Answer{
     margin: 20px;
@@ -36,7 +37,9 @@ hr{
     color: black;
     display: flex;
     flex-wrap: wrap;
-    border-radius: 10px;
+    border: 2px solid rgb(119, 119, 119);
+    border-left:none ;
+    border-right: none;
 }
 .AnswerVote{
     width: 50px;
@@ -67,7 +70,17 @@ button{
     color: black;
 }
 .YoursAnswerSection textarea{
-    width: 100%;
+    width: 95%;
     height: 100px;
     border-radius: 5px;
+}
+.YoursAnswerSection input[type="submit"]{
+    background-color: #26b7fa;
+    color: #fff;
+    width: 8em;
+    border: none;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px;
 }

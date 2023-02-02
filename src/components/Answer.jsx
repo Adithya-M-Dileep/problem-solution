@@ -1,21 +1,22 @@
 import React from 'react';
 
-function Answer(){
+function Answer(props){
     return (
         <div className='Answer'>
+        <hr/>
             <div className='AnswerVote'>
             <button >
             <img src="/Images/ICONS/upArrow.png" alt="up Vote" style={{width:'45px',height:'40px'}}></img>
             </button>
-            <p>10</p>
+            <p>{props.votes}</p>
             <button>    
             <img src="/Images/ICONS/downArrow.png" alt="down Vote" style={{width:'45px',height:'40px'}}></img>
             </button>
             </div>
             <div className='AnswerBody'>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae voluptatibus dignissimos facilis at animi consequatur in optio itaque, repellat, minus sint aliquam inventore minima quas a error. Delectus, minus ut.</p>
+                <p>{props.answerText}</p>
             </div>
-
+        <hr/>
         </div>
     )
 }

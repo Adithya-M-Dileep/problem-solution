@@ -50,7 +50,7 @@ function NewQuestion(){
                 <h2>Tags</h2>
                 <input type="text" name="tags" value={tags} onChange={(e)=>setTags(e.target.value)} placeholder="Add up to 5 tags to describe what your question is about. Seperate the tags by comma (,)" />
             </div>
-            <input type="submit" />
+            <input type="submit" value="Submit"/>
         </form>
         </div>
     )

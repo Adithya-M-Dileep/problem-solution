@@ -1,32 +1,44 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import {doc,collection ,getDoc} from 'firebase/firestore';
 import './styles/QuestionPage.css';
-import Answer from "./Answer.jsx";
+import AnswerSection from "./AnswerSection.jsx";
+import db from "../firebase";
+import { useEffect,useState } from 'react';
 
 function QuestionPage(){
+    const { id } = useParams();
+    const questionRef = doc(collection(db, "questions"), id);
+    const [questionInfo,setQuestionInfo]=useState({tags:[]});
+    useEffect(() => {
+        async function getQuestion() {
+            const docSnap = await getDoc(questionRef);
+            if (docSnap.exists()) {
+                setQuestionInfo(docSnap.data());
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }
+        getQuestion();
+    },[]);
     return (
         <div className='QuestionPage'>
             <div className='QuestionSection'>
                 <div className="questionTitle">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                </p>
+                <p>{questionInfo.title}</p>
                 </div>
                 <hr/>
                 <div className="questionBody">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                </p></div>
+                <p>{questionInfo.text}</p></div>
                 <div className="questionTags">
-                <a href='/'>Tags</a></div>
+                {questionInfo.tags.map((a)=>{
+                    return <a href='/'>{a}</a>
+                })}
+                </div>
                 
             </div>
-            <p className='sectionTitles'>Answers</p>
-            <div className='AnswerSection'>
-                <Answer />
-                <Answer />
-            </div>
-            <p className='sectionTitles'>Your Answer</p>
-            <div className="YoursAnswerSection">
-                <textarea className="YoursAnswer" placeholder="Enter your answer here..."></textarea>
-            </div>
+            <AnswerSection/>
         </div>
     )
 }
