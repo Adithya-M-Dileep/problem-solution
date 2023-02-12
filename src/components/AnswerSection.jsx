@@ -9,6 +9,7 @@ import db from "../firebase";
 function AnswerSection(props){
     const { id } = useParams();
     const answerRef = doc(collection(db, "answers"), id);
+    const questionRef = doc(collection(db, "questions"), id);
     const [answerInfo,setAnswerInfo]=useState([]);
     const [answerDetails,setAnswerDetails]=useState("");
     useEffect(() => {
@@ -24,11 +25,25 @@ function AnswerSection(props){
         getAnswer();
     },[]);
 
+    async function answerCount(){
+        var count= answerInfo.length;
+        const docSnap = await getDoc(questionRef);
+            if (docSnap.exists()) {
+                var quesntionInfo=docSnap.data();
+                quesntionInfo.answers=count;
+                updateDoc(questionRef,quesntionInfo);
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+    }
+
     
     async function handleSubmit(e){
         e.preventDefault();
         var a=answerInfo;
-        a.push({answer:answerDetails,votes:0});
+        const key=new Date().valueOf();
+        a.push({answer:answerDetails,votes:0,key:key});
         const updatedAnswer={
             answerArray:a
         }
@@ -36,6 +51,7 @@ function AnswerSection(props){
         try{
             // console.log(updatedAnswer);
             updateDoc(answerRef,updatedAnswer);
+            answerCount();
             setAnswerInfo(a);
         } catch(error){
             console.log(error);
@@ -46,8 +62,8 @@ function AnswerSection(props){
         <div>
             <p className='sectionTitles'>Answers</p>
             <div className='AnswerSection'>
-                {answerInfo.map((answer)=>{
-                    return <Answer votes={answer.votes} answerText={answer.answer}/>
+                {answerInfo.map((answer,i)=>{
+                    return <Answer answerInfo={answerInfo} keys={i} votes={answer.votes} answerText={answer.answer}/>
                 })}
             </div>
             <p className='sectionTitles'>Your Answer</p>   
