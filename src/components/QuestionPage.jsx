@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import {doc,collection ,getDoc} from 'firebase/firestore';
+import {doc,collection ,getDoc,updateDoc} from 'firebase/firestore';
 import './styles/QuestionPage.css';
 import AnswerSection from "./AnswerSection.jsx";
 import db from "../firebase";
@@ -22,11 +22,25 @@ function QuestionPage(){
         }
         getQuestion();
     },[]);
+    async function questionLike(){
+        var a=questionInfo;
+        a.vote=a.vote+1;
+        try{
+            updateDoc(questionRef,a);
+        } catch(error){
+            console.log(error);
+        }
+    }
     return (
         <div className='QuestionPage'>
             <div className='QuestionSection'>
                 <div className="questionTitle">
-                <p>{questionInfo.title}</p>
+                <div>
+                <p>{questionInfo.title}</p></div>
+                <div>
+                <button onClick={()=>questionLike()}>
+                <img src="/Images/ICONS/heart.png" alt="Likes" style={{width:'45px',height:'40px'}}></img>
+                </button></div>
                 </div>
                 <hr/>
                 <div className="questionBody">
