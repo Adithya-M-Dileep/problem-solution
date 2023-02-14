@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './styles/NewQuestion.css';
 import {doc,collection, setDoc } from 'firebase/firestore';
 import db from "../firebase";
-import { async } from '@firebase/util';
 
 function NewQuestion(){
     const collectionInfo=collection(db,'questions');
