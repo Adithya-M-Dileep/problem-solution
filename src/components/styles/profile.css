@@ -1,0 +1,7 @@
+.profilebox{
+    width: 300px;
+    height: 400px;
+    border: 2px solid black;
+    align-items: center;
+    text-align: center;
+}

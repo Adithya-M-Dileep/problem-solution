@@ -1,8 +1,23 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import db from "../firebase";
-import {doc,collection,updateDoc} from 'firebase/firestore';
+import {doc,collection,updateDoc,setDoc} from 'firebase/firestore';
 import {useState } from 'react';
+
+async function updateTokens(author,questionID){
+    const rewardInfo=collection(db,'rewards');
+    const rewardList={
+        author:author,
+        questionID:questionID
+    }
+    const rewardRef=doc(rewardInfo);
+    try{
+    await setDoc(rewardRef,rewardList);
+    }catch(error){
+        console.log(error);
+    }
+}
+
 
 function Answer(props){
     const [answerVote,setVotes]=useState(props.votes);
@@ -12,6 +27,11 @@ function Answer(props){
     async function updateVotes(x){
         answerInfo[props.keys].votes+=x;
         setVotes(answerInfo[props.keys].votes);
+        if(!answerInfo[props.keys].tokenRecieved && answerVote>10){
+            console.log("reached tilll heree")
+            answerInfo[props.keys].tokenRecieved=true;
+            updateTokens(answerInfo[props.keys].author,id);
+        }
         await updateDoc(answerRef,{answerArray:answerInfo});
     }
 
