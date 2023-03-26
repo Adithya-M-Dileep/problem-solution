@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore} from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -9,6 +10,7 @@ import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: "AIzaSyAb3FdV0HAkZbomDXlK16chWVibMhr0EOw",
   authDomain: "problem-solution-website.firebaseapp.com",
+  databaseURL: "https://problem-solution-website-default-rtdb.firebaseio.com",
   projectId: "problem-solution-website",
   storageBucket: "problem-solution-website.appspot.com",
   messagingSenderId: "498360885198",
@@ -18,4 +20,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth=getAuth(app);
+export const realtimeDb = getDatabase(app);
 export default getFirestore(app);

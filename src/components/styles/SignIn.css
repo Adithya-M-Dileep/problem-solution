@@ -6,7 +6,7 @@
 }
 .welcome{
     flex: 1;
-    /* background-image: url('public/images/ICON/SignIn-backdrop.jpeg'); */
+    /* background-image: url('\Images\ICONS\SignIn-backdrop.jpg'); */
     /* add this dont know how  and replace the rest code image in public.imgaes.icons*/
     background-color: blue;
     height: 500px;

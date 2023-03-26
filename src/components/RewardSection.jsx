@@ -24,9 +24,14 @@ function RewardSection(){
             querySnapshot.forEach((doc)=>{
                 const reward=doc.data();
                 q.push(<div className="tokenTransferSection">
+                <div className="rewardDetaild">
                     <p>{reward.author}</p>
                     <a href={"/question/"+reward.questionID}>Question Details</a><br/>
+                </div>
+                <div className="rewardButton">
                     <button onClick={()=>{TransferCoin(reward.author)}}>Transfer</button>
+                    <button >Delete</button>
+                </div>
                 </div>);
             });
             
@@ -38,7 +43,7 @@ function RewardSection(){
 
     },[]);
     return (
-        <div>
+        <div class="rewardSection">
         <button>Connect TO Wallet</button>
         <p>Account balance:</p>
         {rewards}

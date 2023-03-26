@@ -13,8 +13,11 @@ const SignIn = () => {
 
  async function signIn(e){
   e.preventDefault()
-    await login(email,password);
+    var status = await login(email,password);
+    console.log(status);
+    if(status){
     navigate("/");
+    }
 
   // setLoading(false)
 }

@@ -21,7 +21,7 @@ const  Profile=()=>{
             <h4>{currentUser.email}</h4>
             <button onClick={handleLogout}>Logout</button>
         </div>
-        {currentUser.email==="admin@admin.com"?<RewardSection/>:<p>not an admin</p>}
+        {currentUser.email==="admin@admin.com"?<RewardSection/>:null}
         
         </div>
     )
