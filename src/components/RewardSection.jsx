@@ -4,54 +4,18 @@ import {collection, onSnapshot ,doc,getDoc,deleteDoc} from 'firebase/firestore';
 import db from "../firebase";
 import { useState,useEffect } from "react";
 
+const TOKEN_ADDRESS = '0x0cc1E618D345bB123d6159363A206149f993c2BA';
+const TOKEN_ABI = [
+  'function balanceOf(address owner) view returns (uint256)',
+  'function transfer(address to, uint256 amount)',
+];
+const amount =10;
 
-function RewardSection(){   
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [defaultAccount, setDefaultAccount] = useState(null);
-    const [userBalance, setUserBalance] = useState(null);
-    let provider;
-    let signer;
-    let signerAddress;
 
-    const tokenContractAddress = "0x0cc1E618D345bB123d6159363A206149f993c2BA";
-    const tokenABI = [
-        "function balanceOf(address account) view returns (uint256)",
-        "function transfer(address recipient, uint256 amount) returns (bool)",
-        "function approve(address spender, uint256 amount) returns (bool)",
-        "function transferFrom(address sender, address recipient, uint256 amount) returns (bool)",
-        "function allowance(address owner, address spender) view returns (uint256)",
-        "event Transfer(address indexed from, address indexed to, uint256 value)",
-        "event Approval(address indexed owner, address indexed spender, uint256 value)"
+function RewardSection(){
+    const collectionInfo=collection(db,'rewards');
+    const [rewards,setRewards]=useState([]);   
 
-    ];
-    let tokenContract;
-    let userTokenBalance;
-    const connectWallet = async() => {
-        if (window.ethereum) { 
-            window.ethereum.request({method: 'eth_requestAccounts'}).then(async result => { 
-                await accountChanged ( [result[0]]) 
-                provider = new ethers.providers.Web3Provider(window.ethereum);
-                console.log(provider);
-                signer = provider.getSigner();
-                console.log(signer);
-                signerAddress = signer.getAddress();
-                console.log(signerAddress);
-                tokenContract = new ethers.Contract(tokenContractAddress, tokenABI, signer);
-                console.log(tokenContract);
-            })
-        } else {
-            setErrorMessage('Install MetaMask please!!')
-        }
-    };
-    const accountChanged =(accountName) => {
-        setDefaultAccount (accountName)
-        getUserBalance (accountName)
-    };
-    const getUserBalance = (accountAddress) => {
-        window.ethereum.request ({method: 'eth_getBalance', params: [String (accountAddress), "latest"]}).then (balance => {
-            setUserBalance (ethers.utils.formatEther (balance));
-        })
-    };
     async function deleteReward(id){
         const rewardRef = doc(db, "rewards", id);
         await deleteDoc(rewardRef);
@@ -68,31 +32,26 @@ function RewardSection(){
             await sendTransaction(address);
             deleteReward(id);}
             catch(err){
-                alert("Something went wrong!");
+                alert(err);
             }
         } else {
             console.log("No such document!");
         }
     }
-    async function sendTransaction(address) {
-        let params = [{
-        from: "0x2bc3085ed905ae71c5edd6c69320df3fd0540441",
-        to: address,
-        gas: Number (21000).toString(16),
-        gasPrice: Number (2500000).toString(16),
-        value: Number (10000000000000).toString(16),
-        }]
-        let result = await window.ethereum. request({method: "eth_sendTransaction", params}).catch((err) => {
-            throw err;
-        console.log(err)
-        })
-        }
-    async function TokenBalance(){
-        userTokenBalance = await tokenContract.balanceOf(signerAddress);
-        console.log(userTokenBalance);
-    }
-    const collectionInfo=collection(db,'rewards');
-    const [rewards,setRewards]=useState([]);         
+    async function sendTransaction(toAddress) {
+        // Connect to the user's MetaMask wallet
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+
+        // Instantiate the token contract
+        const tokenContract = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer);
+
+        // Transfer tokens to the specified address
+        const tx = await tokenContract.transfer(toAddress, ethers.utils.parseUnits(amount.toString(), 18));
+        console.log(`Transaction hash: ${tx.hash}`);
+    }      
+
     useEffect(() => {
         const unsub=onSnapshot(collectionInfo,(querySnapshot)=>{
             var q=[];
@@ -119,10 +78,6 @@ function RewardSection(){
     },[]);
     return (
         <div class="rewardSection">
-        <button onClick={connectWallet}>Connect TO Wallet</button>
-        <p>Account balance: {defaultAccount}</p>
-        <p>Balance: {userBalance}</p>
-        <button onClick={TokenBalance}>trial</button>
         {rewards}
         </div>
     )

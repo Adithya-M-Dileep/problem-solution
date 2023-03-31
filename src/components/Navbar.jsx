@@ -10,7 +10,7 @@ function Navbar(){
             <input type='text' placeholder='Search...' />
             </form></li>
             <li style={{float:'right'}}><div className='options'>
-            <a href='/' className="nav-options" >5</a>
+            <a href='/' className="nav-options" >~</a>
             <img className="nav-options"  src="/icon.png" alt="coin" style={{width:'20px',height:'20px'}}></img>
             <a style={{marginLeft:'30px'}}  className="nav-options profile" id='profilePic' href='/profile'><img src="/profile.png" alt="coin" style={{width:'35px',height:'35px',borderRadius:'50%'}}/>
         </a>
