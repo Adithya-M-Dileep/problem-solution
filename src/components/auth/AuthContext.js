@@ -32,7 +32,8 @@ async function login(email, password) {
       const dbRef = ref(realtimeDb);
       await get(child(dbRef,'/AdminAuth/')).then((snapshot) => {
       if (snapshot.exists()) {
-        if(snapshot.val()){
+        const data=snapshot.val();
+        if(data["Auth"]){
           alert("Admin Verified");
         }
         else{
