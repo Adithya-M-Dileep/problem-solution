@@ -4,7 +4,7 @@ import {collection, onSnapshot ,doc,getDoc,deleteDoc} from 'firebase/firestore';
 import db from "../firebase";
 import { useState,useEffect } from "react";
 
-const TOKEN_ADDRESS = '0x0cc1E618D345bB123d6159363A206149f993c2BA';
+const TOKEN_ADDRESS = '';
 const TOKEN_ABI = [
   'function balanceOf(address owner) view returns (uint256)',
   'function transfer(address to, uint256 amount)',
