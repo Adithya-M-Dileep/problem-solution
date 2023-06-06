@@ -31,7 +31,7 @@ Our project is a website that serves as a platform for users to ask and answer q
    ```
 2. Install the dependencies:
    ```bash
-   cd repository-name
+   cd problem-solution
    npm install
    ```
 3. Set up the database and configure the necessary environment variables.
@@ -41,25 +41,26 @@ Our project is a website that serves as a platform for users to ask and answer q
    ```
 ## Screenshots
 
+> Sign up page
 ![Sign Up Page](./screenshots/1.png)
-> Sign up page description
 
+
+> Login page
 ![Login Page](./screenshots/2.png)
-> Login page description
 
+> RFID scan section
 ![RFID Scan Section](./screenshots/3.png)
-> RFID scan section description
 
+> Home page
 ![Home Page](./screenshots/4.png)
-> Home page description
 
+> Add a question section
 ![Add a Question Section](./screenshots/6.png)
-> Add a question section description
 
+> Question page
 ![Question Page 1](./screenshots/7.png)
 ![Question Page 1](./screenshots/8.png)
-> Question page description
 
+> Profile page
 ![Profile Page](./screenshots/9.png)
-> Profile page description
 
